@@ -7,11 +7,7 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node/install-packages:
-          app-dir: ./server
-      - run: 
-          command: npm test
-          working_directory: ./server
+      - setup_remote_docker
   
   react-client:
     executor:
@@ -23,6 +19,26 @@ jobs:
       - run:
           command: npm test
           working_directory: ./client
+          
+  docker-publish:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
+            sudo docker build ./server -t karol22322/node-svr
+            sudo docker push akrason/node-svr
+      - run:
+          command: |
+            echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
+            sudo docker build ./client -t karol22322/cra-client
+            sudo docker push akrason/cra-client
+      - run:
+          command: |
+            echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
+            sudo docker build ./client -t karol22322/node-react-db
+            sudo docker push karol22322/node-react-db
          
 workflows:
     build-and-test:
