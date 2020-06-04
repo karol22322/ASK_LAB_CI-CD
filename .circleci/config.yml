@@ -38,18 +38,18 @@ jobs:
       - run:
           command: |
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
-            sudo docker build ./server -t karol22322/node-svr
-            sudo docker push karol22322/node-svr
+            sudo docker build ./server -t kkusik/node-svr
+            sudo docker push kkusik/node-svr
       - run:
           command: |
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
-            sudo docker build ./client -t karol22322/cra-client
-            sudo docker push karol22322/cra-client
+            sudo docker build ./client -t kkusik/cra-client
+            sudo docker push kkusik/cra-client
       - run:
           command: |
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
-            sudo docker build ./client -t karol22322/node-react-db
-            sudo docker push karol22322/node-react-db
+            sudo docker build ./client -t kkusik/node-react-db
+            sudo docker push kkusik/node-react-db
          
 workflows:
     build-and-test:
