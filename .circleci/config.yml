@@ -6,25 +6,26 @@ jobs:
     executor:
       name: node/default
     steps:
-      - run:
-          command: npm test
-          working_directory: ./server
-  react-client:
       - checkout
       - node/install-packages:
-          app-dir: ./client     
-workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
-        - node-server
-        - react-client
+          app-dir: ./server
+      - run: 
           command: npm test
           working_directory: ./server
+  
   react-client:
     executor:
       name: node/default
     steps:
       - checkout
       - node/install-packages:
-        app-dir: ./client
+          app-dir: ./client       
+      - run:
+          command: npm test
+          working_directory: ./client
+         
+workflows:
+    build-and-test:
+      jobs:
+        - node-server
+        - react-client
