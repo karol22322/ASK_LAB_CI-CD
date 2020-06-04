@@ -45,16 +45,22 @@ jobs:
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
             sudo docker build ./client -t karol22322/cra-client
             sudo docker push karol22322/cra-client
-      - run:
-          command: |
-            echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
-            sudo docker build ./client -t karol22322/node-react-db
-            sudo docker push karol22322/node-react-db
          
 workflows:
     build-and-test:
       jobs:
-        - build
-        - node-server
-        - react-client
-        - docker-publish
+        - build:
+            filters:
+              branches:
+                only:
+                  - master
+        - node-server:
+            requires:
+              - build
+        - react-client:
+            requires:
+              - build
+        - docker-publish:
+            requires:
+              - react-client
+              - node-server
