@@ -2,12 +2,23 @@ version: 2.1
 orbs:
   node: circleci/node@2.1.0
 jobs:
+  build:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - setup_remote_docker  
+  
   node-server:
     executor:
       name: node/default
     steps:
       - checkout
-      - setup_remote_docker
+      - node/install-packages:
+          app-dir: ./server
+      - run: 
+          command: npm test
+          working_directory: ./server
   
   react-client:
     executor:
