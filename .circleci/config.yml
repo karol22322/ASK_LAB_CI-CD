@@ -19,12 +19,12 @@ workflows:
         - build-and-test
         - node-server
         - react-client
-        command: npm test
-        working_directory: ./server
-react-client:
-  executor:
-    name: node/default
-  steps:
-    - checkout
-    - node/install-packages:
-      app-dir: ./client
+          command: npm test
+          working_directory: ./server
+  react-client:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+        app-dir: ./client
