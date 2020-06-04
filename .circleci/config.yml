@@ -12,6 +12,12 @@ jobs:
       - run:
           command: npm test
           working_directory: ./server
+      - checkout
+      - node/install-packages:
+          app-dir: ./client
+      - run:
+          command: npm test
+          working_directory: ./client
 workflows:
     build-and-test:
       jobs:
