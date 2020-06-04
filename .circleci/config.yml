@@ -54,5 +54,7 @@ jobs:
 workflows:
     build-and-test:
       jobs:
+        - build
         - node-server
         - react-client
+        - docker-publish
