@@ -39,12 +39,12 @@ jobs:
           command: |
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
             sudo docker build ./server -t karol22322/node-svr
-            sudo docker push akrason/node-svr
+            sudo docker push karol22322/node-svr
       - run:
           command: |
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
             sudo docker build ./client -t karol22322/cra-client
-            sudo docker push akrason/cra-client
+            sudo docker push karol22322/cra-client
       - run:
           command: |
             echo "$DOCKER_PASS" | docker login -u "karol22322" --password-stdin
